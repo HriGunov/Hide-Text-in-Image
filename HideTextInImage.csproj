@@ -55,6 +55,7 @@
     <Compile Include="HideText.Designer.cs">
       <DependentUpon>HideText.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImgeProcessing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextToBitmap.cs" />
