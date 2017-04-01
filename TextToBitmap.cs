@@ -9,9 +9,9 @@ namespace HideTextInImage
 {
     public class TextToBitmap
     {
-        public static Bitmap Create(string originalImagePath, string textPath)
+        public static Bitmap Create(Bitmap imageRef, string textPath)
         {
-            Bitmap image = new Bitmap(originalImagePath);
+            Bitmap image = (Bitmap)imageRef.Clone();
 
             // old Dictionary<char, int> charUses = new Dictionary<char, int>();
             StreamReader text = new StreamReader(textPath);

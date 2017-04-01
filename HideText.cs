@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+ 
 namespace HideTextInImage
 {
     public partial class HideText : Form
@@ -56,7 +56,10 @@ namespace HideTextInImage
                     bt_HideTextInImage.Enabled = false;
                     bt_ExtractText.Enabled = false;
                     Bitmap originalImageBitmap = new Bitmap(originalImagePath);
-                    Bitmap textBitmap = TextToBitmap.Create(originalImagePath, originalTextPath);
+                  
+
+
+                    Bitmap textBitmap = TextToBitmap.Create(originalImageBitmap, originalTextPath);
                     
 
 

@@ -41,13 +41,13 @@
             this.lb_enterImage = new System.Windows.Forms.Label();
             this.bt_OpenImage = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.bt_ExtractText = new System.Windows.Forms.Button();
             this.bt_OpenOriginalImage = new System.Windows.Forms.Button();
             this.tb_originalImagePath = new System.Windows.Forms.TextBox();
             this.tb_BlendedImagePath = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.bt_OpenBlendedImage = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.dia_SaveTextLocation = new System.Windows.Forms.SaveFileDialog();
             this.gb_HideText.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -89,6 +89,7 @@
             this.bt_HideTextInImage.TabIndex = 19;
             this.bt_HideTextInImage.Text = "Hide Text in Image";
             this.bt_HideTextInImage.UseVisualStyleBackColor = true;
+            this.bt_HideTextInImage.Click += new System.EventHandler(this.bt_HideTextInImage_Click);
             // 
             // bt_OpenText
             // 
@@ -98,6 +99,7 @@
             this.bt_OpenText.TabIndex = 18;
             this.bt_OpenText.Text = "Open";
             this.bt_OpenText.UseVisualStyleBackColor = true;
+            this.bt_OpenText.Click += new System.EventHandler(this.bt_OpenText_Click);
             // 
             // lb_EnterTextLocation
             // 
@@ -139,6 +141,7 @@
             this.bt_OpenImage.TabIndex = 13;
             this.bt_OpenImage.Text = "Open";
             this.bt_OpenImage.UseVisualStyleBackColor = true;
+            this.bt_OpenImage.Click += new System.EventHandler(this.bt_OpenImage_Click);
             // 
             // groupBox1
             // 
@@ -155,6 +158,15 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Extract Text.";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(17, 90);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(191, 17);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Enter original image location:";
             // 
             // bt_ExtractText
             // 
@@ -208,15 +220,6 @@
             this.bt_OpenBlendedImage.Text = "Open";
             this.bt_OpenBlendedImage.UseVisualStyleBackColor = true;
             this.bt_OpenBlendedImage.Click += new System.EventHandler(this.bt_OpenBlendedImage_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 90);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 17);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Enter original image location:";
             // 
             // HideText
             // 

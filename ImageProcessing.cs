@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace HideTextInImage
 {
-    class ImgeProcessing
+  public static  class ImageProcessing
     {
        //Takes an image and returns a "black and white" version of it
-      static  Bitmap ToMonoChromatic(Bitmap  imageRef)
+   public   static  Bitmap ToMonoChromatic(Bitmap  imageRef)
         {
             double redRatio = 0.30;
             double greenRatio = 0.59;
