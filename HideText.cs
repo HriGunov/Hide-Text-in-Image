@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
- 
+
 namespace HideTextInImage
 {
     public partial class HideText : Form
@@ -25,7 +26,7 @@ namespace HideTextInImage
             {
 
                 tb_textPath.Text = dia_OpenText.FileName;
-
+               
             }
             Console.WriteLine(result); // <-- For debugging use.
         }
@@ -38,6 +39,7 @@ namespace HideTextInImage
             {
 
                 tb_imagePath.Text = dia_OpenImage.FileName;
+                
             }
             Console.WriteLine(result); // <-- For debugging use.
         }
@@ -55,18 +57,14 @@ namespace HideTextInImage
                     Console.WriteLine(result); // <-- For debugging use.
                     bt_HideTextInImage.Enabled = false;
                     bt_ExtractText.Enabled = false;
-                    Bitmap originalImageBitmap = new Bitmap(originalImagePath);
-                  
-
-
-                    Bitmap textBitmap = TextToBitmap.Create(originalImageBitmap, originalTextPath);
                     
+                    Bitmap originalImage = new Bitmap(originalImagePath);
+                    string orginalImageHash = Sha256.Hash(originalImagePath);
 
+                    Hide(originalImage, originalTextPath);
 
-                    Bitmap blenedImage = Blender.Blend(originalImageBitmap, textBitmap);
-                    blenedImage.Save(dia_BlenedImageLocation.FileName);
-                    tb_textPath.Text = "";
-                    tb_imagePath.Text = "";
+                   //tb_textPath.Text = "";
+                   //tb_imagePath.Text = "";
                     MessageBox.Show("Job's done!");
                     bt_HideTextInImage.Enabled = true;                    
                     bt_ExtractText.Enabled = true;
@@ -77,12 +75,17 @@ namespace HideTextInImage
                     throw;
                 }
             }
-           
+                      
 
+        }
 
+        void Hide(Bitmap originalImage,string originalTextPath)
+        {
 
-
-
+            Bitmap textBitmap = TextToBitmap.Create(originalImage, originalTextPath);
+            Bitmap blendedImage = Blender.Blend(originalImage, textBitmap);
+            blendedImage.Save(dia_BlenedImageLocation.FileName,System.Drawing.Imaging.ImageFormat.Png);
+            
         }
 
 
@@ -154,11 +157,14 @@ namespace HideTextInImage
 
 
                     Bitmap unblendedTextBitmap = Blender.UnBlend(blended, originalImageBitmap);
-
-                    BitmapToText.BitmapToText.Extract(unblendedTextBitmap, dia_SaveTextLocation.FileName);
-
-
-
+                    string orginalImageHash = Sha256.Hash(originalImagePath);
+                    using (StreamWriter sr = new StreamWriter(dia_SaveTextLocation.FileName))
+                    {
+                        string text = BitmapToText.Extract(unblendedTextBitmap, orginalImageHash);
+                        
+                        sr.Write(text);
+                    }
+                     
                     tb_originalImagePath.Text ="";
                     tb_BlendedImagePath.Text = "";
 

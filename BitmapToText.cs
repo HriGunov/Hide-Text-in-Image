@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
+using System.Security.Cryptography;
 
-namespace BitmapToText
+namespace HideTextInImage
 {
   public   class BitmapToText
     {
-     public   static string Extract(Bitmap image, string extracteTextLoc, int stopAtCharNumber = -1)
+        public static string Extract(Bitmap image, string originalImageHash = null, int stopAtCharNumber = -1)
         {
-           
+
             Color curPixlColor = image.GetPixel(0, 0);
+            int counter = 0;
+            char charFromColor;
+            string text = "";
+
             //checks if stopAtChar argument was given if not the loop will end at the last pixel of the image
             if (stopAtCharNumber < 0)
             {
@@ -18,56 +22,32 @@ namespace BitmapToText
                 stopAtCharNumber = PixelColorToNumber(curPixlColor.A, curPixlColor.R, curPixlColor.G, curPixlColor.B);
             }
 
-            //todo
-            string text = "";
-
-            int counter = 0;
-            int xAxis = 0;
-            int yAxis = 0;
-
-            char charFromColor;
-            do
+            for (int y = 0; y < image.Height; y++)
             {
-                
-                if (counter + 1 >= image.Width)
+                for (int x = 0, len = image.Width; x < image.Width; x++)
                 {
-                    xAxis = (counter + 1) % image.Width;
-                    yAxis = counter / image.Width;
-
-                    curPixlColor = image.GetPixel((counter + 1) % image.Width, yAxis);
-
+                    if (counter < stopAtCharNumber)
+                    {
+                        curPixlColor = image.GetPixel(x, y);
+                        charFromColor = (char)PixelColorToNumber(curPixlColor.A, curPixlColor.R, curPixlColor.G, curPixlColor.B);
+                        text += charFromColor;
+                        counter++;
+                    }
+                    else
+                    {
+                        return text;
+                    }
                 }
-                else
-                {
+            }
 
-                    curPixlColor = image.GetPixel(counter, yAxis);
+            if (originalImageHash != null)
+            {
+                text = Sha256.Encrypt(text, originalImageHash);
+            }
 
-                }
-               
-                charFromColor = (char)PixelColorToNumber(curPixlColor.A, curPixlColor.R, curPixlColor.G, curPixlColor.B);
-                
-                string curCharasStr = charFromColor.ToString();
-
-                //To be changed to return a whole string
-                using (StreamWriter sw = new StreamWriter(extracteTextLoc, true))
-                {
-                    // Add some text to the file.
-                    sw.Write(curCharasStr);
-                }
-
-                //   extractedText.WriteLine(curCharasStr);
-                counter++;
-
-                
-            } while (counter < stopAtCharNumber);
-
-
-
-            Console.WriteLine("Easy");
-            //extractedText.Write(text);
-            return "s";
-
+            return text;
         }
+
         //Only the blue and green values are used 
         static int PixelColorToNumber(int alpha, int red, int green, int blue)
         {                        

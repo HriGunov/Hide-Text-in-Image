@@ -60,12 +60,12 @@ namespace HideTextInImage
         public static Bitmap UnBlend(Bitmap firstImage, Bitmap keyImage)
         {
             Bitmap unblendedImage = new Bitmap(firstImage.Width, firstImage.Height);
-
+            Color newPixel;
             for ( int y=0 ; y < firstImage.Height; y++)
             {
                 for (int x = 0; x < firstImage.Width; x++)
                 {
-                    Color newPixel = UnBlendPixel(firstImage.GetPixel(x, y), keyImage.GetPixel(x, y));
+                      newPixel = UnBlendPixel(firstImage.GetPixel(x, y), keyImage.GetPixel(x, y));
                     unblendedImage.SetPixel(x, y, newPixel);
                 }
             }

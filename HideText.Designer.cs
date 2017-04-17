@@ -53,13 +53,17 @@
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // dia_OpenImage
+            // 
+            this.dia_OpenImage.Filter = "Image Files1|*.png;*jpg;*.bmp;*.jpeg";
+            // 
             // dia_OpenText
             // 
             this.dia_OpenText.Filter = "Text Files(.txt)|*.txt";
             // 
             // dia_BlenedImageLocation
             // 
-            this.dia_BlenedImageLocation.Filter = "Bitmap(.bmp)|*.bmp";
+            this.dia_BlenedImageLocation.Filter = "PNG(.png)|*.png";
             // 
             // saveFileDialog1
             // 
@@ -74,16 +78,17 @@
             this.gb_HideText.Controls.Add(this.tb_imagePath);
             this.gb_HideText.Controls.Add(this.lb_enterImage);
             this.gb_HideText.Controls.Add(this.bt_OpenImage);
-            this.gb_HideText.Location = new System.Drawing.Point(27, 12);
+            this.gb_HideText.Location = new System.Drawing.Point(12, 12);
             this.gb_HideText.Name = "gb_HideText";
-            this.gb_HideText.Size = new System.Drawing.Size(712, 183);
+            this.gb_HideText.Size = new System.Drawing.Size(786, 216);
             this.gb_HideText.TabIndex = 16;
             this.gb_HideText.TabStop = false;
             this.gb_HideText.Text = "Hide Text.";
             // 
             // bt_HideTextInImage
             // 
-            this.bt_HideTextInImage.Location = new System.Drawing.Point(317, 115);
+            this.bt_HideTextInImage.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bt_HideTextInImage.Location = new System.Drawing.Point(320, 124);
             this.bt_HideTextInImage.Name = "bt_HideTextInImage";
             this.bt_HideTextInImage.Size = new System.Drawing.Size(138, 60);
             this.bt_HideTextInImage.TabIndex = 19;
@@ -93,9 +98,9 @@
             // 
             // bt_OpenText
             // 
-            this.bt_OpenText.Location = new System.Drawing.Point(614, 90);
+            this.bt_OpenText.Location = new System.Drawing.Point(677, 87);
             this.bt_OpenText.Name = "bt_OpenText";
-            this.bt_OpenText.Size = new System.Drawing.Size(75, 23);
+            this.bt_OpenText.Size = new System.Drawing.Size(93, 26);
             this.bt_OpenText.TabIndex = 18;
             this.bt_OpenText.Text = "Open";
             this.bt_OpenText.UseVisualStyleBackColor = true;
@@ -114,14 +119,14 @@
             // 
             this.tb_textPath.Location = new System.Drawing.Point(151, 87);
             this.tb_textPath.Name = "tb_textPath";
-            this.tb_textPath.Size = new System.Drawing.Size(438, 22);
+            this.tb_textPath.Size = new System.Drawing.Size(503, 22);
             this.tb_textPath.TabIndex = 16;
             // 
             // tb_imagePath
             // 
             this.tb_imagePath.Location = new System.Drawing.Point(151, 30);
             this.tb_imagePath.Name = "tb_imagePath";
-            this.tb_imagePath.Size = new System.Drawing.Size(438, 22);
+            this.tb_imagePath.Size = new System.Drawing.Size(503, 22);
             this.tb_imagePath.TabIndex = 15;
             // 
             // lb_enterImage
@@ -135,9 +140,9 @@
             // 
             // bt_OpenImage
             // 
-            this.bt_OpenImage.Location = new System.Drawing.Point(614, 30);
+            this.bt_OpenImage.Location = new System.Drawing.Point(677, 30);
             this.bt_OpenImage.Name = "bt_OpenImage";
-            this.bt_OpenImage.Size = new System.Drawing.Size(75, 23);
+            this.bt_OpenImage.Size = new System.Drawing.Size(93, 29);
             this.bt_OpenImage.TabIndex = 13;
             this.bt_OpenImage.Text = "Open";
             this.bt_OpenImage.UseVisualStyleBackColor = true;
@@ -152,9 +157,9 @@
             this.groupBox1.Controls.Add(this.tb_BlendedImagePath);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.bt_OpenBlendedImage);
-            this.groupBox1.Location = new System.Drawing.Point(27, 201);
+            this.groupBox1.Location = new System.Drawing.Point(12, 223);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(712, 183);
+            this.groupBox1.Size = new System.Drawing.Size(786, 216);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Extract Text.";
@@ -170,7 +175,7 @@
             // 
             // bt_ExtractText
             // 
-            this.bt_ExtractText.Location = new System.Drawing.Point(317, 115);
+            this.bt_ExtractText.Location = new System.Drawing.Point(320, 126);
             this.bt_ExtractText.Name = "bt_ExtractText";
             this.bt_ExtractText.Size = new System.Drawing.Size(138, 60);
             this.bt_ExtractText.TabIndex = 19;
@@ -180,9 +185,9 @@
             // 
             // bt_OpenOriginalImage
             // 
-            this.bt_OpenOriginalImage.Location = new System.Drawing.Point(614, 90);
+            this.bt_OpenOriginalImage.Location = new System.Drawing.Point(677, 90);
             this.bt_OpenOriginalImage.Name = "bt_OpenOriginalImage";
-            this.bt_OpenOriginalImage.Size = new System.Drawing.Size(75, 23);
+            this.bt_OpenOriginalImage.Size = new System.Drawing.Size(93, 26);
             this.bt_OpenOriginalImage.TabIndex = 18;
             this.bt_OpenOriginalImage.Text = "Open";
             this.bt_OpenOriginalImage.UseVisualStyleBackColor = true;
@@ -213,19 +218,23 @@
             // 
             // bt_OpenBlendedImage
             // 
-            this.bt_OpenBlendedImage.Location = new System.Drawing.Point(614, 30);
+            this.bt_OpenBlendedImage.Location = new System.Drawing.Point(677, 30);
             this.bt_OpenBlendedImage.Name = "bt_OpenBlendedImage";
-            this.bt_OpenBlendedImage.Size = new System.Drawing.Size(75, 23);
+            this.bt_OpenBlendedImage.Size = new System.Drawing.Size(93, 31);
             this.bt_OpenBlendedImage.TabIndex = 13;
             this.bt_OpenBlendedImage.Text = "Open";
             this.bt_OpenBlendedImage.UseVisualStyleBackColor = true;
             this.bt_OpenBlendedImage.Click += new System.EventHandler(this.bt_OpenBlendedImage_Click);
             // 
+            // dia_SaveTextLocation
+            // 
+            this.dia_SaveTextLocation.Filter = "Text File(.txt)|*.txt";
+            // 
             // HideText
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 396);
+            this.ClientSize = new System.Drawing.Size(810, 443);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.gb_HideText);
             this.Name = "HideText";
