@@ -13,7 +13,7 @@ namespace HideTextInImage
     //Creats a Bitmap version of a txt file where every character is represented by a pixel
     //and the rest are a combination of  the used characters
     //The bitmap representation  of the text has the proportions of the original image
-    public static Bitmap Create(Bitmap imageRef, string textPath,string originalImageHash = null)
+    public static Bitmap Create(Bitmap imageRef, string textPath,string originalImageHash = null) 
     {
         Bitmap image = new Bitmap(imageRef.Width, imageRef.Height);
         string text;
@@ -76,7 +76,7 @@ namespace HideTextInImage
         return image;
 
     }
-
+        //This should not be in this file
         public static Encoding GetEncoding(string filename)
         {
             // Read the BOM

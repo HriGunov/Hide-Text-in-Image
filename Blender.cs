@@ -1,13 +1,13 @@
 ﻿using System.Drawing;
-
+using HideTextInImage.Interfaces;
 namespace HideTextInImage
 {
-    class Blender
+    class Blender 
     {
         public static Bitmap Blend(Bitmap originalImage, Bitmap secondImage)
         {
             Bitmap image = new Bitmap(originalImage.Width, originalImage.Height);
-
+            //goes though the whole image
             for (int y = 0; y < originalImage.Height; y++)
             {
                 for (int x = 0; x < originalImage.Width; x++)
@@ -23,6 +23,8 @@ namespace HideTextInImage
         {
             short mixedGreen = (short)((originalImageColor.G + secondColor.G) / 2);
             short mixedBlue = (short)((originalImageColor.B + secondColor.B) / 2);
+
+            //if its ood then the have a loss of information
             bool sumOfGreenIsOdd = false;
             bool sumOfBlueIsOdd = false;
 
@@ -34,7 +36,7 @@ namespace HideTextInImage
             {
                 sumOfBlueIsOdd = true;
             }
-
+            
             //We change the red value to 6 bits and use the other 2 to store bool values ( if green/blue are odd)
             int red = originalImageColor.R >> 2;
             red = red << 2;
@@ -72,7 +74,7 @@ namespace HideTextInImage
 
             return unblendedImage;
         }
-
+        //reverses the blendPixel function
         private static Color UnBlendPixel(Color firstColor, Color keyColor)
         {
             bool sumOfGreenIsOdd = false;
