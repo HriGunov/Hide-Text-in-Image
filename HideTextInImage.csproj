@@ -48,7 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapToText.cs" />
-    <Compile Include="Blender.cs" />
+    <Compile Include="Blenders\CharToPixel\CharToPixelBlend.cs" />
+    <Compile Include="Blenders\CharToPixel\PixelToChar.cs" />
+    <Compile Include="Interfaces\IBlendable.cs" />
+    <Compile Include="Interfaces\IBlendPixelMethod.cs" />
     <Compile Include="Sha256.cs" />
     <Compile Include="HideText.cs">
       <SubType>Form</SubType>
@@ -85,6 +88,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

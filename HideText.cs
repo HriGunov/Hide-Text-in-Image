@@ -8,14 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using HideTextInImage.Blenders.CharToPixel;
+using HideTextInImage.Interfaces;
 namespace HideTextInImage
 {
     public partial class HideText : Form
     {
+        IBlendable blender;
         public HideText()
         {
             InitializeComponent();
+
+            blender = new Blenders.CharToPixel.PixelToChar(new CharToPixelBlend());
+
         }
 
         private void bt_OpenText_Click(object sender, EventArgs e)
@@ -56,25 +61,24 @@ namespace HideTextInImage
             {
                 try
                 {
-                    Console.WriteLine(result); // <-- For debugging use.
+                   
                     //locks originalImage and text paths  also provies a visual cue that the program is working
                     bt_HideTextInImage.Enabled = false;
                     bt_ExtractText.Enabled = false;
-                    
-                    Bitmap originalImage = new Bitmap(originalImagePath);                  
-                   
 
-                    Bitmap blendedImage =  Hide(originalImage, originalTextPath);
-                    blendedImage.Save(dia_BlenedImageLocation.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                    originalImage.Dispose();
-                    
+                    var mixedImage = blender.BlendWhole(originalImagePath, originalTextPath);
+
+                    mixedImage.Save(dia_BlenedImageLocation.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                                       
                     //clears the ext fields
                     tb_textPath.Text = "";
                     tb_imagePath.Text = "";
 
-                    MessageBox.Show("Text has been hidden!");
-                    bt_HideTextInImage.Enabled = true;                    
+                    bt_HideTextInImage.Enabled = true;
                     bt_ExtractText.Enabled = true;
+
+                    MessageBox.Show("Text has been hidden!");
+                    
                 }
                 catch (Exception)
                 {
@@ -86,20 +90,7 @@ namespace HideTextInImage
 
         }
 
-        //Takes a bitmap and a string 
-        //returns bitmap with the "hidden" string
-        Bitmap Hide(Bitmap originalImage,string originalTextPath)
-        {
-            //Creates bitmap of the text
-            Bitmap textBitmap = TextToBitmap.Create(originalImage, originalTextPath);
-            textBitmap.Save(dia_BlenedImageLocation.FileName + "-bitmap.png", System.Drawing.Imaging.ImageFormat.Png);
-            return  Blender.Blend(originalImage, textBitmap);
-            
-            
-        }
-
-
-
+        
         private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
@@ -148,7 +139,7 @@ namespace HideTextInImage
         {
 
             string originalImagePath = tb_originalImagePath.Text;
-            string blendedImagetPath = tb_BlendedImagePath.Text;
+            string blendedImagePath = tb_BlendedImagePath.Text;
 
 
             DialogResult result = dia_SaveTextLocation.ShowDialog();
@@ -161,32 +152,29 @@ namespace HideTextInImage
 
                     bt_HideTextInImage.Enabled = false;
                     bt_ExtractText.Enabled = false;
-                    Bitmap originalImageBitmap = new Bitmap(originalImagePath);
-                    Bitmap blended = new Bitmap(blendedImagetPath);
+
+                  string extractedText =  blender.UnblendWhole(originalImagePath, blendedImagePath);
 
 
 
-                    Bitmap unblendedTextBitmap = Blender.UnBlend(blended, originalImageBitmap);
-                    string orginalImageHash = Sha256.Hash(originalImagePath);
+                    
                     using (StreamWriter sr = new StreamWriter(dia_SaveTextLocation.FileName))
-                    {
-                        string text = BitmapToText.Extract(unblendedTextBitmap, orginalImageHash);
-                        
-                        sr.Write(text);
+                    {                                              
+                        sr.Write(extractedText);
                     }
-                    originalImageBitmap.Dispose();
-                    blended.Dispose();
+                    
                     tb_originalImagePath.Text ="";
                     tb_BlendedImagePath.Text = "";
 
-                    MessageBox.Show("Job's done!");
                     bt_HideTextInImage.Enabled = true;
                     bt_ExtractText.Enabled = true;
+                    MessageBox.Show("Text extracted at {0}", dia_SaveTextLocation.FileName);
+                    
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
 
-                    throw;
+                    throw ex;
                 }
             }
         }
